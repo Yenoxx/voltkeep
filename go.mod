@@ -1,4 +1,4 @@
-module yxenc
+module github.com/yenoxx/voltkeep
 
 go 1.22.6
 
