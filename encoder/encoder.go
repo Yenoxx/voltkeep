@@ -1,5 +1,7 @@
 package encoder
 
+import "github.com/yenoxx/voltkeep/hashes"
+
 const MAGIC_1 uint64 = 123454321
 const MAGIC_2 uint64 = 9797
 const MAGIC_3 uint64 = 7979
@@ -14,8 +16,8 @@ func CreateEncoder() *Encoder {
 	return &Encoder{}
 }
 
-func (e *Encoder) Begin(key uint64, bytes []byte) *Encoder {
-	e.key = key
+func (e *Encoder) Begin(pass string, bytes []byte) *Encoder {
+	e.key = hashes.DJB2(pass)
 
 	nbytes := make([]byte, len(bytes))
 	copy(nbytes, bytes)
@@ -24,8 +26,8 @@ func (e *Encoder) Begin(key uint64, bytes []byte) *Encoder {
 	return e
 }
 
-func (e *Encoder) ChangeKey(key uint64) *Encoder {
-	e.key = key
+func (e *Encoder) ChangePass(pass string) *Encoder {
+	e.key = hashes.DJB2(pass)
 
 	return e
 }
